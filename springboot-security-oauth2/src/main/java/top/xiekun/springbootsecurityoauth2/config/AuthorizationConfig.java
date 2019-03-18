@@ -27,23 +27,21 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
                 throws Exception {
-                endpoints.authenticationManager(authenticationManager)
+                endpoints.authenticationManager(authenticationManager)//我们使用oauth2的密码模式时需要配置authenticationManager
                         .userDetailsService(userService);
         }
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
                 clients.inMemory().withClient("app")
-                        .secret(passwordEncoder.encode("app"))
-                        //.authorizedGrantTypes("password","refresh_token")
-                        .authorizedGrantTypes("password")
+                        .secret(passwordEncoder.encode("app"))//这个地方在springboot1.x版本中不需要加密的，但是2.x版本需要加密
+                        .authorizedGrantTypes("password")//这样写的话，我们获取的token里不会有refresh_token
                         .scopes("all")
                         .accessTokenValiditySeconds(120)
                         .and()
                         .withClient("web")
                         .secret(passwordEncoder.encode("web"))
                         .authorizedGrantTypes("password","refresh_token")
-                        //.authorizedGrantTypes("password")
                         .scopes("all")
                         .accessTokenValiditySeconds(3600);
         }

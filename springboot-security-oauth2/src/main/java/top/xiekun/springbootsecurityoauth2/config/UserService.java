@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService {
                         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
                         if ("xiekun".equals(user.getName())) {
                                 grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_admin"));
+                                grantedAuthorities.add(new SimpleGrantedAuthority("read"));
                         }
                         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_normal"));
                         return new User(user.getName(), user.getPassword(), grantedAuthorities);

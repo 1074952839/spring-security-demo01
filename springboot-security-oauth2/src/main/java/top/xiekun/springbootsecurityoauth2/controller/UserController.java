@@ -26,7 +26,7 @@ public class UserController {
         private PasswordEncoder passwordEncoder;
 
         @GetMapping
-        @PreAuthorize("hasRole('admin')")
+        @PreAuthorize("hasRole('admin') and hasAuthority('read')")
         public List<User> get(){
                 return userRepository.findAll();
         }
