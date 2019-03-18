@@ -3,5 +3,16 @@ spring:
     url: jdbc:mysql://localhost/security-demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 12345678
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
 server:
   port: 8090
+#security:
+#  oauth2:
+#    client:
+#      registered-redirect-uri: http://www.baidu.com
+#      client-id: spring
+#      client-secret: spring

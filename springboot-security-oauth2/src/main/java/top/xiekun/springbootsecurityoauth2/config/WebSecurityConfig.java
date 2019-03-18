@@ -1,7 +1,7 @@
 package top.xiekun.springbootsecurityoauth2.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,17 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Bean
-        private PasswordEncoder passwordEncoder(){
+        public PasswordEncoder passwordEncoder(){
                 return new BCryptPasswordEncoder();
         }
 
+        @Bean
         @Override
-        protected void configure(HttpSecurity http) throws Exception {
-                http.formLogin()
-                        .and()
-                        .authorizeRequests()
-                        .antMatchers("/user/register").permitAll()//这里我们允许/user/register请求可以直接访问，
-                        .anyRequest()
-                        .authenticated();
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+                return super.authenticationManagerBean();
         }
 }
